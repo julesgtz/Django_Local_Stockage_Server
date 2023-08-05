@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 
 def login_rq(request):
     if request.user.is_authenticated:
-        messages.info(request, "you are already logged")
+        messages.info(request, f"Vous êtes déjà connecté {request.user}")
         return HttpResponseRedirect("/stockage")
     else:
         if request.method == "POST":
@@ -22,13 +22,13 @@ def login_rq(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    messages.info(request, f"You are now logged in as {username}.")
+                    messages.info(request, f"Vous êtes maintenant connecté en tant que {username}.")
                     return HttpResponseRedirect("/stockage")
                 else:
-                    messages.error(request, "Unsuccessful registration. Invalid information.")
+                    messages.error(request, "Les informations sont invalides, veuillez réessayer")
                     return redirect("/")
             else:
-                messages.error(request, "Please enter a correct username and password.")
+                messages.error(request, "Les informations sont invalides, veuillez rééssayer.")
                 return redirect("/")
         else:
             form = AuthenticationForm()
@@ -62,4 +62,4 @@ def add(request):
 
 @login_required(login_url="/")
 def stockage(request):
-    "voit le stockage"
+    return render(request, "stockage/stockage.html")
