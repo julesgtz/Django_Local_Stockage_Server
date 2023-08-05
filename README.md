@@ -6,10 +6,10 @@ Ce projet est un serveur django que vous pouvez deployer en local pour stocker t
 
 ## Features
 
-- [x] Login/ Register
+- [x] Login/ Register (simple, sans email, sans mdp minimum etc etc)
 - [x] Administration (delete de fichiers, l'ip de celui qui a ajouter le fichier)
 - [x] Ajouts de fichiers / Suppression d'uniquement vos fichiers
-- [x] Simple d'utilisation (lancer le .bat , c'est tout)
+- [x] Simple d'utilisation (lancer le .bat , c'est tout) 
 - [ ] Ajouts de plusieurs fichiers en même temps
 
 ## Configuration
