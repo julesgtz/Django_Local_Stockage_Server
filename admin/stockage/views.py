@@ -88,7 +88,10 @@ def delete(request, path):
     File = models.Files.objects.get(file="media/"+path)
     if File.user == str(request.user) or str(request.user) == "admin":
         File.delete()
-        os.remove("media/media/" + path)
+        try:
+            os.remove("media/media/" + path)
+        except:
+            os.remove("admin/media/media/" + path)
         messages.success(request, "Fichier supprimé avec succes !")
         return redirect("/stockage")
     else:
