@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends "main.html" %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
+
+{% block content %}
+  <h1 class="stockage">Stockage</h1>
 {% if messages %}
   {% for message in messages %}
       <p>{{ message }}</p>
@@ -55,5 +58,6 @@
         </table>
     {% endif %}
       </div>
+{% endblock %}
 </body>
 </html>

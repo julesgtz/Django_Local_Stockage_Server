@@ -1,4 +1,6 @@
 <div class="container py-5">
+  {% extends "main.html" %}
+  {% block content %}
   <h1>Register</h1>
 {% if messages %}
   {% for message in messages %}
@@ -9,7 +11,9 @@
   <form method="POST">
     {% csrf_token %}
     {{ form }}
-    <button type="submit">Register</button>
+    <br><br><br>
+    <input type="submit" value="Register" class="button">
   </form>
   <p class="text-center">Have an account? <a href="/">Login</a>.</p>
 </div>
+{% endblock %}

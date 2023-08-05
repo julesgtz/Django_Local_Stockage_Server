@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+        <style type="text/css">a:link{text-decoration:none}</style>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <nav>
+            <div class="menu">
+                <a href="/">Login</a>
+            </div>
+
+            <div class="menu">
+              <a href="/logout/">Logout</a>
+            </div>
+
+            <div class="menu">
+              <a href="/register/">S'enregister</a>
+            </div>
+
+            <div class="menu">
+              <a href="/add/">Ajouter un fichier</a>
+            </div>
+
+    <div class="menu">
+              <a href="/stockage/">Voir le stockage</a>
+            </div>
+    </nav>
+<main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
