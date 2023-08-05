@@ -1,13 +1,9 @@
 from django.db import models
-
+import os
 class Files(models.Model):
-    name = models.CharField(max_length=40)
-    file = models.FileField(upload_to='uploads/')
+    file = models.FileField(upload_to='media/')
     ip = models.GenericIPAddressField(null=True, blank=True)
-    user = models.CharField(max_length=40)
+    user = models.CharField(max_length=40,null=True, blank=True)
 
-    def __str__(self):
-        return self.name
-
-    def dico(self):
-        return {"name":self.name, "file":self.file.name, "ip": self.ip, "user": self.user}
+    def filename(self):
+        return os.path.basename(self.file.name)

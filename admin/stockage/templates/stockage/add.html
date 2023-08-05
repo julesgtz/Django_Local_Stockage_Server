@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+{% if messages %}
+  {% for message in messages %}
+      <p>{{ message }}</p>
+  {% endfor %}
+{% endif %}
 
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">ADD</button>
+  </form>
 </body>
 </html>

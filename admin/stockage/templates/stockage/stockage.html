@@ -10,6 +10,42 @@
       <p>{{ message }}</p>
   {% endfor %}
 {% endif %}
-<p>STOCKAGE</p>
+<div class="form">
+    {% if admin %}
+        <table style="width:100%" id="admin">
+          <tr>
+            <th>#</th>
+            <th>Fichier</th>
+            <th>Uploader</th>
+            <th>IP</th>
+          </tr>
+          {% for l in liste %}
+
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{{ l.file.url }}" download> {{ l.filename }} </a></td>
+            <td>{{ l.user }}</td>
+            <td>{{ l.ip }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+    {% else %}
+            <table style="width:100%" id="table">
+          <tr>
+            <th>#</th>
+            <th>Fichier</th>
+            <th>Uploader</th>
+          </tr>
+          {% for l in liste %}
+
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{{ l.file.url }}" download> {{ l.filename }} </a></td>
+            <td>{{ l.user }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+    {% endif %}
+      </div>
 </body>
 </html>

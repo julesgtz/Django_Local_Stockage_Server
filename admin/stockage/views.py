@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, LoginForm
+from .forms import NewUserForm, LoginForm, FilesForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from . import models
 
+#faire en sorte que seulement le owner peut delete son truc ajouter
 # Create your views here.
 
 def login_rq(request):
@@ -57,9 +59,25 @@ def logout_rq(request):
 
 @login_required(login_url="/")
 def add(request):
-    "add"
+    if request.method=="POST":
+        form = FilesForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.ip = request.META['REMOTE_ADDR']
+            data.user = str(request.user)
+            data.save()
+            return redirect("/stockage")
+        else:
+            messages.error(request, [error.as_text()[1:] for error in form.errors.values()][0])
+            return redirect("/add")
+    else:
+        form = FilesForm()
+        return render(request, "stockage/add.html", {"form": form})
 
 
 @login_required(login_url="/")
 def stockage(request):
-    return render(request, "stockage/stockage.html")
+    liste = list(models.Files.objects.all())
+    if str(request.user) == "admin":
+        return render(request, "stockage/stockage.html" ,{"admin": True, "liste" : liste})
+    return render(request, "stockage/stockage.html", {"liste" : liste})
