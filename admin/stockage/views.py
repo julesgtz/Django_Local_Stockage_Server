@@ -9,8 +9,7 @@ from django.http import HttpResponseRedirect
 from . import models
 import os
 
-#faire en sorte que seulement le owner peut delete son truc ajouter
-# Create your views here.
+
 
 def login_rq(request):
     if request.user.is_authenticated:
@@ -44,7 +43,7 @@ def register_rq(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect("/stockage")
         else:
             messages.error(request, [error.as_text()[1:] for error in form.errors.values()][0])
             return redirect("/register")
