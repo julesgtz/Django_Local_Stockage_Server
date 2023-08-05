@@ -27,7 +27,8 @@ class LoginForm(forms.Form):
 class FilesForm(ModelForm):
     class Meta:
         model = models.Files
-        fields = ('file',)
+        fields = ('name','file',)
         labels = {
+            'name': _('Donnez un nom a votre fichier'),
             'file': _('Votre fichier'),
         }

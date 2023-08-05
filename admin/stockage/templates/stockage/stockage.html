@@ -18,14 +18,16 @@
             <th>Fichier</th>
             <th>Uploader</th>
             <th>IP</th>
+            <th>Delete</th>
           </tr>
           {% for l in liste %}
 
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><a href="{{ l.file.url }}" download> {{ l.filename }} </a></td>
+            <td><a href="{{ l.file.url }}" download> {{ l.name }} </a></td>
             <td>{{ l.user }}</td>
             <td>{{ l.ip }}</td>
+              <td><a href="/delete/{{ l.filename }}">Supprimer le fichier</a></td>
           </tr>
           {% endfor %}
         </table>
@@ -35,13 +37,19 @@
             <th>#</th>
             <th>Fichier</th>
             <th>Uploader</th>
+              <th>Delete</th>
           </tr>
           {% for l in liste %}
 
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><a href="{{ l.file.url }}" download> {{ l.filename }} </a></td>
+            <td><a href="{{ l.file.url }}" download> {{ l.name }} </a></td>
             <td>{{ l.user }}</td>
+                          {% if l.user == user %}
+              <td><a href="/delete/{{ l.filename }}">Supprimer le fichier</a></td>
+              {% else %}
+              <td>Suppression non Autorisée</td>
+              {% endif %}
           </tr>
           {% endfor %}
         </table>

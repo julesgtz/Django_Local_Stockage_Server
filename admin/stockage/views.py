@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import NewUserForm, LoginForm, FilesForm
@@ -7,6 +7,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from . import models
+import os
 
 #faire en sorte que seulement le owner peut delete son truc ajouter
 # Create your views here.
@@ -80,4 +81,17 @@ def stockage(request):
     liste = list(models.Files.objects.all())
     if str(request.user) == "admin":
         return render(request, "stockage/stockage.html" ,{"admin": True, "liste" : liste})
-    return render(request, "stockage/stockage.html", {"liste" : liste})
+    return render(request, "stockage/stockage.html", {"liste" : liste, "user":str(request.user)})
+
+
+@login_required(login_url="/")
+def delete(request, path):
+    File = models.Files.objects.get(file="media/"+path)
+    if File.user == str(request.user) or str(request.user) == "admin":
+        File.delete()
+        os.remove("media/media/" + path)
+        messages.success(request, "Fichier supprimé avec succes !")
+        return redirect("/stockage")
+    else:
+        messages.error(request, "Tu n'as pas le droit de supprimer le fichier d'un autre")
+        return redirect("/stockage")

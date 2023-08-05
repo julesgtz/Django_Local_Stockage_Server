@@ -12,5 +12,6 @@ urlpatterns = [
     path('register/', views.register_rq),
     path('logout/', views.logout_rq),
     path('stockage/', views.stockage),
-    path('add/', views.add)
+    path('add/', views.add),
+    path('delete/<str:path>', views.delete)
 ]
